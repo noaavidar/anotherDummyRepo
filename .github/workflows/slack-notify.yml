@@ -21,10 +21,13 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: noa.avidar
-          SLACK_TITLE: _____
+          SLACK_TITLE: _
           SLACK_MESSAGE: 'CTP ${{ steps.get-latest-tag.outputs.TAG }} is being released! :rocket:
            Changelog :point_right:
            https://github.com/zoomin-software/pdfqueuer-ng/releases/tag/${{ steps.get-latest-tag.outputs.TAG }}'
           SLACK_USERNAME: ctp-bot
           MSG_MINIMAL: true
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+#todo: change channel in the workfow and here: "https://api.slack.com/apps/A04DEVBD3B9/incoming-webhooks?"
+# add SLACK_WEBHOOK secret: copy uri from same link
