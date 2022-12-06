@@ -21,7 +21,7 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: noa.avidar
-          SLACK_TITLE:
+          SLACK_TITLE: _____
           SLACK_MESSAGE: 'CTP ${{ steps.get-latest-tag.outputs.TAG }} is being released! :rocket:
            Changelog :point_right:
            https://github.com/zoomin-software/pdfqueuer-ng/releases/tag/${{ steps.get-latest-tag.outputs.TAG }}'
