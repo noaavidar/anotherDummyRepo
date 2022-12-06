@@ -1,0 +1,19 @@
+name: Slack Notification Demo
+
+on:
+  push:
+    tags:
+    - '*'
+
+jobs:
+  notification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release notification
+        uses: stormwarning/action-release-notification@v1
+        with:
+          channel: noa.avidar
+          message: A new version is out!
+          actions: '[{"text": "View changelog 🎉", "url": "CHANGELOG.md"},{"text": "View docs 📚", "url": "https://foo.com"}]'
+        env:
+          SLACKBOT_TOKEN: ${{ secrets.SLACKBOT_TOKEN }}
