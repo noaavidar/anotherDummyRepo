@@ -9,13 +9,22 @@ jobs:
   notification:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: 'Get latest tag'
+        id: get-latest-tag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: noa.avidar
           SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
           SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: 'Post Content :rocket:'
+          SLACK_MESSAGE: 'CTP ${{ steps.get-latest-tag.outputs.TAG }} is being released! :rocket: /n
+          Changelog :point_right: https://github.com/zoomin-software/pdfqueuer-ng/releases/tag/${{ steps.get-latest-tag.outputs.TAG }}'
           SLACK_TITLE: Post Title
           SLACK_USERNAME: ctp-bot
           MSG_MINIMAL: true
