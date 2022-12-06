@@ -23,9 +23,8 @@ jobs:
           SLACK_CHANNEL: noa.avidar
           SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
           SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: 'CTP ${{ steps.get-latest-tag.outputs.TAG }} is being released! :rocket: /n
+          SLACK_MESSAGE: 'CTP ${{ steps.get-latest-tag.outputs.TAG }} is being released! :rocket:
           Changelog :point_right: https://github.com/zoomin-software/pdfqueuer-ng/releases/tag/${{ steps.get-latest-tag.outputs.TAG }}'
-          SLACK_TITLE: Post Title
           SLACK_USERNAME: ctp-bot
           MSG_MINIMAL: true
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
