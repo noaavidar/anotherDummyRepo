@@ -19,9 +19,9 @@ jobs:
 
 
       - name: Any Name Bash Test Step
-          shell: bash
-          run: |
-            echo "The commit message is: $(git log -1 --pretty=%B)"
+        shell: bash
+        run: |
+          echo "The commit message is: $(git log -1 --pretty=%B)"
 
 
       - name: Send custom JSON data to Slack workflow
