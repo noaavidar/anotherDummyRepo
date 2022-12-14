@@ -2,8 +2,8 @@ name: Slack Notification
 
 on:
   push:
-    branches:
-      - main
+    tags:
+    - '*'
 
 jobs:
   notification:
@@ -18,35 +18,23 @@ jobs:
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
 
 
-      - name: Any Name Bash Test Step
-        shell: bash
-        run: |
-          echo "The commit message is: $(git log -2 --pretty=%B)"
-
-
-      - name: Send custom JSON data to Slack workflow
-        id: slack
-        uses: slackapi/slack-github-action@v1.23.0
-        with:
-          payload: |
-            {
-              "text": "CTP Deployment",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "CTP ${{ steps.get-latest-tag.outputs.TAG }} is being released! changelog :point_right: https://github.com/zoomin-software/pdfqueuer-ng/releases/tag/${{ steps.get-latest-tag.outputs.TAG }}"
+      - name: 'send to Slack'
+          id: slack
+          uses: slackapi/slack-github-action@v1.23.0
+          with:
+            payload: |
+              {
+                "text": "CTP Deployment",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "CTP ${{ steps.get-latest-tag.outputs.TAG }} is being released! changelog :point_right: https://github.com/zoomin-software/pdfqueuer-ng/releases/tag/${{ steps.get-latest-tag.outputs.TAG }}"
+                    }
                   }
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-
-#todo: change channel in the workfow and here: "https://api.slack.com/apps/A04DEVBD3B9/incoming-webhooks?"
-# add SLACK_WEBHOOK secret: copy uri from same link
-
-# https://github.com/zoomin-software/portal-theme/actions/workflows/ontag.yml
-#
+                ]
+              }
+          env:
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+            SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
