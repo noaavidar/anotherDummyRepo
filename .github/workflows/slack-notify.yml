@@ -17,6 +17,9 @@ jobs:
         id: get-latest-tag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
 
+      -  run: echo ${{ github.event.head_commit.message }}
+
+
 
       - name: Send custom JSON data to Slack workflow
         id: slack
