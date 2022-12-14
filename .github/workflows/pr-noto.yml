@@ -20,7 +20,7 @@ jobs:
         with:
           payload: |
             {
-              "text": "CTP deployment",
+              "text": "CTP deploment",
               "blocks": [
                 {
                   "type": "section",
