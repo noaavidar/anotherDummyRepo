@@ -36,7 +36,9 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "New Release deployed to ${{ github.ref_name }}!  "
+                    "text": "CTP ${{ steps.get-latest-tag.outputs.TAG }} is being released!
+                          changelog :point_right:
+                    https://github.com/zoomin-software/pdfqueuer-ng/releases/tag/${{ steps.get-latest-tag.outputs.TAG }}"
                   }
                 }
               ]
