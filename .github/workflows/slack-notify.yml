@@ -37,7 +37,7 @@ jobs:
               ]
             }
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
 #todo: change channel in the workfow and here: "https://api.slack.com/apps/A04DEVBD3B9/incoming-webhooks?"
