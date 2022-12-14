@@ -2,8 +2,8 @@ name: Slack Notification
 
 on:
   push:
-    tags:
-    - '*'
+    branches:
+      - main
 
 jobs:
   notification:
@@ -18,19 +18,20 @@ jobs:
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
 
 
-      - name: 'send to Slack'
+      - name: Send custom JSON data to Slack workflow
         id: slack
         uses: slackapi/slack-github-action@v1.23.0
         with:
+          # For posting a rich message using Block Kit
           payload: |
             {
-              "text": "CTP Deployment",
+              "text": "CTP ${{ steps.get-latest-tag.outputs.TAG }} is being deployed to ${{ github.ref_name }} ",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "CTP ${{ github.ref_name }} is being released! changelog :point_right: https://github.com/zoomin-software/pdfqueuer-ng/releases/tag/${{ steps.get-latest-tag.outputs.TAG }}"
+                    "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
                   }
                 }
               ]
@@ -38,3 +39,9 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+#todo: change channel in the workfow and here: "https://api.slack.com/apps/A04DEVBD3B9/incoming-webhooks?"
+# add SLACK_WEBHOOK secret: copy uri fromsame link
+
+# https://github.com/zoomin-software/portal-theme/actions/workflows/ontag.yml
+##
