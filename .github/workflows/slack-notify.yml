@@ -17,17 +17,28 @@ jobs:
         id: get-latest-tag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
 
-      - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2
+
+      - name: Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          # For posting a rich message using Block Kit
+          payload: |
+            {
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                  }
+                }
+              ]
+            }
         env:
-          SLACK_CHANNEL: noa.avidar
-          SLACK_TITLE: .
-          SLACK_MESSAGE: 'CTP ${{ steps.get-latest-tag.outputs.TAG }} is being released! :rocket:
-           changelog :point_right:
-           https://github.com/zoomin-software/pdfqueuer-ng/releases/tag/${{ steps.get-latest-tag.outputs.TAG }}'
-          SLACK_USERNAME: ctp-bot
-          MSG_MINIMAL: true
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
 #todo: change channel in the workfow and here: "https://api.slack.com/apps/A04DEVBD3B9/incoming-webhooks?"
 # add SLACK_WEBHOOK secret: copy uri from same link
