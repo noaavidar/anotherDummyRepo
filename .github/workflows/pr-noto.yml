@@ -1,9 +1,10 @@
-name: Slack Notification
+name: Slack Notification on deployment
 
 on:
   push:
-    tags:
-    - '*'
+    branches:
+      - main
+
 
 jobs:
   notification:
@@ -13,28 +14,23 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 'Get latest tag'
-        id: get-latest-tag
-        uses: "WyriHaximus/github-action-get-previous-tag@v1"
-
-
       - name: 'send to Slack'
         id: slack
         uses: slackapi/slack-github-action@v1.23.0
         with:
           payload: |
             {
-              "text": "CTP Deployment",
+              "text": "CTP deployment",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "CTP ${{ github.ref_name }} is being released! changelog :point_right: https://github.com/zoomin-software/pdfqueuer-ng/releases/tag/${{ steps.get-latest-tag.outputs.TAG }}"
+                    "text": "New deployment to environment ${{ github.ref_name}} \n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
                   }
                 }
               ]
             }
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
