@@ -22,7 +22,6 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.23.0
         with:
-          # For posting a rich message using Block Kit
           payload: |
             {
               "text": "CTP deployment",
@@ -31,7 +30,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "CTP ${{ steps.get-latest-tag.outputs.TAG }} is deployed to ${{ github.ref_name }}! heres whats changed :point_right: ${{ github.event.head_commit.url }}"
+                    "text": "New Release deployed to ${{ github.ref_name }}! ${{ github.event.head_commit.message }} }}"
                   }
                 }
               ]
