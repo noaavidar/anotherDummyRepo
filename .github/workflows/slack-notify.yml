@@ -30,7 +30,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "New Release deployed to ${{ github.ref_name }}! ${{ github.event.head_commit.message }}"
+                    "text": "New Release deployed to ${{ github.ref_name }}! "
                   }
                 }
               ]
