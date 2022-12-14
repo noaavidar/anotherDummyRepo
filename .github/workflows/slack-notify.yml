@@ -25,12 +25,13 @@ jobs:
           # For posting a rich message using Block Kit
           payload: |
             {
+              "text": "another text ",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "CTP ${{ steps.get-latest-tag.outputs.TAG }} is being deployed to ${{ github.ref_name }} github.event.head_commit.url }}"
+                    "text": "CTP ${{ steps.get-latest-tag.outputs.TAG }} is being deployed to ${{ github.ref_name }} ${{ github.event.head_commit.url }}"
                   }
                 }
               ]
