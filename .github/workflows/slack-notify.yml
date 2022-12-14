@@ -19,22 +19,22 @@ jobs:
 
 
       - name: 'send to Slack'
-          id: slack
-          uses: slackapi/slack-github-action@v1.23.0
-          with:
-            payload: |
-              {
-                "text": "CTP Deployment",
-                "blocks": [
-                  {
-                    "type": "section",
-                    "text": {
-                      "type": "mrkdwn",
-                      "text": "CTP ${{ steps.get-latest-tag.outputs.TAG }} is being released! changelog :point_right: https://github.com/zoomin-software/pdfqueuer-ng/releases/tag/${{ steps.get-latest-tag.outputs.TAG }}"
-                    }
+        id: slack
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          payload: |
+            {
+              "text": "CTP Deployment",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "CTP ${{ steps.get-latest-tag.outputs.TAG }} is being released! changelog :point_right: https://github.com/zoomin-software/pdfqueuer-ng/releases/tag/${{ steps.get-latest-tag.outputs.TAG }}"
                   }
-                ]
-              }
-          env:
-            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-            SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
